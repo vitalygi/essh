@@ -15,7 +15,7 @@ import pexpect
 DATA_PATH = f'{os.getenv("HOME")}/.essh'
 SALT = b'URmMAfHhZJcvmNZ_hirZ_1rwPCX-ibTDX33a'
 ITERATIONS = 480000
-
+DEFAULT_PASS = 'VmfriGduvpA434-bbb9fdfs-ndgreozcu5cv4'
 def ip_address_validator(ip):
     with suppress(ValueError):
         return ip_address(ip)
@@ -74,7 +74,12 @@ def main():
 
     while True:
         master_pass = getpass('Enter master password: ')
-        data = decrypt_data(master_pass)
+        if len(master_pass)==0:
+            master_pass = DEFAULT_PASS 
+            data = decrypt_data(master_pass)
+            data = {} if data is None else data
+        else:
+            data = decrypt_data(master_pass)
         if data is not None:
             break
 
