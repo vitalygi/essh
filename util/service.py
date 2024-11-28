@@ -1,7 +1,9 @@
 import os
+
 import pexpect
 
-def connect_via_ssh_with_password(ip, server_pass,user, port=22, clear=False):
+
+def connect_via_ssh_with_password(ip, server_pass, user, port=22, clear=False):
     try:
         ssh_command = f"ssh {user}@{ip} -p {port}"
         child = pexpect.spawn(ssh_command)

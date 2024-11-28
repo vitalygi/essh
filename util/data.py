@@ -1,6 +1,7 @@
 import base64
 import os
 import json
+import traceback
 from contextlib import suppress
 from ipaddress import ip_address
 from typing import List, Union
@@ -10,8 +11,10 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 DIR_PATH = f'{os.path.expanduser("~")}/.essh'
+
 SALT_PATH = f'{DIR_PATH}/.salt'
 DATA_PATH = f'{DIR_PATH}/.essh'
+TERM_SESSION = f'{DIR_PATH}/.esession'
 try:
     os.makedirs(DIR_PATH, exist_ok=True)
 except NotADirectoryError:
@@ -39,11 +42,14 @@ def get_engine(password: str, salt: str) -> Fernet:
     key = base64.urlsafe_b64encode(kdf.derive(password.encode('utf-8')))
     return Fernet(key)
 
-
-def encrypt(password: str, data, salt, file_path: str = DATA_PATH) -> bytes:
-    encrypted_data = get_engine(password, salt).encrypt(json.dumps(data).encode('utf-8'))
+def encrypt_string(password: str, data: str, salt, file_path: str = DATA_PATH) -> bytes:
+    encrypted_data = get_engine(password, salt).encrypt(data.encode('utf-8'))
     write_file(file_path, encrypted_data)
     return encrypted_data
+
+
+def encrypt_json(password: str, data, salt, file_path: str = DATA_PATH) -> bytes:
+    return encrypt_string(password,json.dumps(data),salt,file_path)
 
 
 def decrypt(password: str, salt, data: bytes = None, file_path: str = DATA_PATH):
@@ -68,9 +74,6 @@ def decrypt_passwords(password: str, encrypted_data: bytes = None, file_path: st
 
 
 def find_server(entities: List[PasswordEntity], data: str):
-    print(entities)
-    print(data)
-    print(is_ip_valid(data))
     if is_ip_valid(data):
         arr = [obj for obj in entities if obj.ip_address == data]
     else:
@@ -86,6 +89,22 @@ def read_file(file_path) -> bytes:
 def write_file(file_path, data: bytes) -> int:
     with open(file_path, 'wb') as f:
         return f.write(data)
+
+def write_term_session(term_session_id,master_pass,file_path=TERM_SESSION):
+    encrypt_string(term_session_id, master_pass, get_salt(), file_path)
+
+def read_previous_term_session(term_session_id: str,file_path=TERM_SESSION) -> Union[str,None]:
+    try:
+        previous_session = read_file(file_path)
+    except FileNotFoundError:
+        previous_session = None
+
+    if previous_session is not None:
+        try:
+            decrypted_data = get_engine(term_session_id, get_salt()).decrypt(previous_session)
+            return decrypted_data.decode("utf-8")
+        except Exception:
+            return None
 
 
 def get_salt():
