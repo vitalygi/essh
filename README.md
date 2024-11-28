@@ -1,4 +1,4 @@
-# Easy SSH (ssh)
+# Easy SSH (essh)
 
 Welcome to **Easy SSH**, a Python-based command-line tool for managing and storing SSH server configurations securely. This tool simplifies the process of connecting to multiple SSH servers by allowing users to store server credentials and connect to them seamlessly using a master password.
 
@@ -8,7 +8,7 @@ Welcome to **Easy SSH**, a Python-based command-line tool for managing and stori
 - **Connect Seamlessly**: Quickly connect to your SSH servers using stored credentials.
 - **Command Line Interface (CLI)**: Easy to use command-line options for adding new servers, connecting, and changing the master password.
 - **IP Address and Name Support**: Fetch server details using either the server's IP address or a custom name.
-- **Cross-Platform**: Compatible with Linux, macOS, and Windows
+- **Terminal sessions support** You do not need to re-enter master password in same terminal session (working for 1 instance).
 
 ## Installation
 
