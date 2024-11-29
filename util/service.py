@@ -22,7 +22,8 @@ def connect_via_ssh_with_password(ip, server_pass, user, ssh_args, clear=False):
         child = pexpect.spawn(ssh_command)
         result = child.expect(["password:",pexpect.EOF, pexpect.TIMEOUT])
         if result != 0:
-            raise Exception(child.before.decode())
+            print(child.before.decode())
+            exit()
 
         child.sendline(server_pass)
         if clear:

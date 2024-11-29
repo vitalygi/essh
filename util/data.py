@@ -9,8 +9,16 @@ import secrets
 from cryptography.fernet import Fernet, InvalidToken
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+import dotenv
+dotenv.load_dotenv()
 
-DIR_PATH = f'{os.path.expanduser("~")}/.essh'
+try:
+    DIR_PATH = f'{os.path.expanduser(os.getenv("DATA_DIR_PATH"))}'
+    if DIR_PATH is None:
+        raise TypeError
+except TypeError:
+    raise Exception('DATA_DIR_PATH not found in .env')
+
 SALT_PATH = f'{DIR_PATH}/.salt'
 DATA_PATH = f'{DIR_PATH}/.essh'
 TERM_SESSION = f'{DIR_PATH}/.esession'
@@ -18,7 +26,7 @@ TERM_SESSION = f'{DIR_PATH}/.esession'
 try:
     os.makedirs(DIR_PATH, exist_ok=True)
 except NotADirectoryError:
-    raise Exception('.essh is not a directory, but exists; delete this file yourself, please')
+    raise Exception('.essh is not a directory, but exists, delete this file yourself, please')
 
 class PasswordEntity(dict):
     """A dictionary-based class to store password-related information."""
