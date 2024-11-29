@@ -28,7 +28,11 @@ class ArgParser(argparse.ArgumentParser):
     def parse_intermixed_args(self, args=None, namespace=None):
         args, argv = self.parse_known_intermixed_args(args, namespace)
         if args.data is not None:
-            args.ssh_args = ' '.join((sys.argv[2:]))
+            print(sys.argv)
+            ssh_args = sys.argv[1:]
+            ssh_args.remove(args.data)
+            args.ssh_args = ' '.join(ssh_args)
+            print(args)
             pass
         return args
 
