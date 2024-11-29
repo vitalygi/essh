@@ -17,7 +17,7 @@ Welcome to **Easy SSH**, a Python-based command-line tool for managing and stori
 git clone https://github.com/vitalygi/essh.git
 
 # Navigate into the directory
-cd essh
+cd sessh
 
 # Install the required Python packages
 pip install -r requirements.txt

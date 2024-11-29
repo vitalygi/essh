@@ -1,0 +1,3 @@
+#!/bin/bash
+source $HOME/.essh/.venv/bin/activate
+python $HOME/.essh/main.py "$@"

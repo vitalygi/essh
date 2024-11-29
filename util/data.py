@@ -20,13 +20,13 @@ except TypeError:
     raise Exception('DATA_DIR_PATH not found in .env')
 
 SALT_PATH = f'{DIR_PATH}/.salt'
-DATA_PATH = f'{DIR_PATH}/.essh'
+DATA_PATH = f'{DIR_PATH}/.sessh'
 TERM_SESSION = f'{DIR_PATH}/.esession'
 
 try:
     os.makedirs(DIR_PATH, exist_ok=True)
 except NotADirectoryError:
-    raise Exception('.essh is not a directory, but exists, delete this file yourself, please')
+    raise Exception('.sessh is not a directory, but exists, delete this file yourself, please')
 
 class PasswordEntity(dict):
     """A dictionary-based class to store password-related information."""
