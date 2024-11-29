@@ -1,7 +1,7 @@
-import argparse
+from util.utils import ArgParser
 from handlers import router
 
-parser = argparse.ArgumentParser(prog='SSH_Manager', description='Manage SSH server configurations securely.')
+parser = ArgParser(prog='SSH_Manager', description='Manage SSH server configurations securely.')
 parser.add_argument('-a', '--add', help='Add a new server flag', action='store_true')
 parser.add_argument('-ip', '--ip_address', help='IP(4/6) address of the server')
 parser.add_argument('-p', '--password', help='Password for the server')
@@ -13,8 +13,12 @@ parser.add_argument('data', help='Enter IP or name to connect to server', nargs=
 
 
 def main():
-    args = parser.parse_args()
-    router.handle(**vars(args))
+    try:
+        args= parser.parse_intermixed_args()
+        router.handle(**vars(args))
+    except KeyboardInterrupt:
+        print('\nprogram exited')
+        exit()
 
 
 if __name__ == '__main__':

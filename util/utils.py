@@ -4,6 +4,33 @@ import subprocess
 from contextlib import suppress
 import hashlib
 import psutil
+import argparse
+import sys
+
+
+class ArgParser(argparse.ArgumentParser):
+    def __init__(self,
+                 prog=None,
+                 usage=None,
+                 description=None,
+                 epilog=None,
+                 parents=[],
+                 formatter_class=argparse.HelpFormatter,
+                 prefix_chars='-',
+                 fromfile_prefix_chars=None,
+                 argument_default=None,
+                 conflict_handler='error',
+                 add_help=True,
+                 allow_abbrev=True,
+                 exit_on_error=True):
+        super().__init__(prog,usage,description,epilog,parents,formatter_class,prefix_chars,fromfile_prefix_chars,argument_default
+                         ,conflict_handler,add_help,allow_abbrev,exit_on_error)
+    def parse_intermixed_args(self, args=None, namespace=None):
+        args, argv = self.parse_known_intermixed_args(args, namespace)
+        if args.data is not None:
+            args.ssh_args = ' '.join((sys.argv[2:]))
+            pass
+        return args
 
 
 def create_function_with_counted_args(fn, *args, **kwargs):

@@ -23,20 +23,17 @@ def drop():
 
 
 @router.handle_arg()
-def data(data, passwords):
+def data(passwords,data,ssh_args):
     """Find and connect to a server using SSH based on provided data.
 
     Searches for the server using the provided 'data' and 'passwords' list.
     If the server is found, an SSH connection is established using the stored
     credentials.
 
-    Args:
-        data: The data used to identify the server.
-        passwords: A list of PasswordEntity objects containing server credentials.
     """
     server = find_server(passwords, data)
     if server is not None:
-        connect_via_ssh_with_password(server.ip_address, server.password, server.user)
+        connect_via_ssh_with_password(server.ip_address, server.password, server.user,ssh_args)
     else:
         print('Server was not found')
 
