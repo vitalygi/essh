@@ -104,7 +104,7 @@ fi
 
 deactivate
 
-echo "Adding virtual environment to PATH..."
-add_to_path_immediate "$DEST_DIR/$VENV_DIR/bin"
+echo "Adding bin to PATH..."
+add_to_path_immediate "$DEST_DIR/bin"
 
 echo "Installation complete."

@@ -13,14 +13,8 @@ Welcome to **Easy SSH**, a Python-based command-line tool for managing and stori
 ## Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/vitalygi/essh.git
-
-# Navigate into the directory
-cd sessh
-
-# Install the required Python packages
-pip install -r requirements.txt
+# Just enter this command to your terminal
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vitalygi/essh/refs/heads/main/install.sh)"
 ```
 
 ## Usage
