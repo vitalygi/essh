@@ -108,3 +108,4 @@ echo "Adding bin to PATH..."
 add_to_path_immediate "$DEST_DIR/bin"
 
 echo "Installation complete."
+cd ~
