@@ -9,6 +9,7 @@ parser.add_argument('-n', '--name', help='Name of the server')
 parser.add_argument('-d', '--drop', action='store_true', help='Drop existing database', default=None)
 parser.add_argument('-u', '--user', help='User for server')
 parser.add_argument('-c', '--change', action='store_true', help='Change master password flag', default=None)
+parser.add_argument('-s', '--show', action='store_true', help='Show saved servers', default=None)
 parser.add_argument('data', help='Enter IP or name to connect to server', nargs='?', default=None)
 
 

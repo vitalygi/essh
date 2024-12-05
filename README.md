@@ -14,19 +14,19 @@ Welcome to **Easy SSH**, a Python-based command-line tool for managing and stori
 
 ```bash
 # Just enter this command to your terminal
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vitalygi/essh/refs/heads/main/install.sh)"
+eval "$(curl -fsSL https://raw.githubusercontent.com/vitalygi/essh/refs/heads/main/install.sh)"
 ```
 
 ## Usage
 
 After installing `Easy SSH`, you can use the following commands:
-
+(If file .essh was not found in '~/.ssh/.essh' your first entered password will be main)
 1. **Add a Server**
 
    To add a new SSH server configuration:
 
    ```bash
-   python ssh.py --add --ip_address [SERVER_IP] --password [SERVER_PASSWORD] --name [SERVER_NAME] --user [USERNAME]
+   essh --add --ip_address [SERVER_IP] --password [SERVER_PASSWORD] --name [SERVER_NAME] --user [USERNAME]
    ```
 
    - `--ip_address`: IP address of the server.
@@ -39,7 +39,7 @@ After installing `Easy SSH`, you can use the following commands:
    To connect to an SSH server:
 
    ```bash
-   python ssh.py [SERVER_IP_OR_NAME]
+   essh [SERVER_IP_OR_NAME]
    ```
 
 3. **Change Master Password**
@@ -47,14 +47,19 @@ After installing `Easy SSH`, you can use the following commands:
    To change the master password for encrypted data:
 
    ```bash
-   python ssh.py --change
+   essh --change
    ```
+3. **Show saved servers**
 
+   To show all saved servers creds excluding password:
+
+   ```bash
+   essh --show
+   ```
 ## Master Password
 
 The script uses a master password, which is required to encrypt and decrypt your server details. During the initial setup, you enter this password.
 
-**Note**: A default master password is used if no input is provided at the prompt. It's highly recommended to set a strong master password.
 
 ## Security
 

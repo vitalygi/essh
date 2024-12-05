@@ -1,4 +1,6 @@
 from getpass import getpass
+from typing import List
+
 from util.data import get_salt
 from util.data import encrypt_json, PasswordEntity, find_server
 from util.router import Router
@@ -46,7 +48,7 @@ def change(passwords):
     Re-encrypts the existing password list with the new master password.
 
     Args:
-        passwords: A list of PasswordEntity objects containing encrypted server credentials.
+        passwords: A list of PasswordEntity objects containing server credentials.
     """
     new_master_pass = getpass('Enter new master password: ')
     while len(new_master_pass) <= 0:
@@ -54,6 +56,15 @@ def change(passwords):
     encrypt_json(new_master_pass, passwords, get_salt())
     print('Master password successfully changed')
 
+@router.handle_arg()
+def show(passwords: List[PasswordEntity]):
+    """Show all saved passwords
+
+    Args:
+        passwords: A list of PasswordEntity objects containing server credentials.
+    """
+    for password_entity in passwords:
+        print(f"{password_entity.ip_address} {password_entity.name or ''} {password_entity.user}")
 
 @router.handle_arg()
 def add(ip_address, password, name, user, passwords, master_pass):
