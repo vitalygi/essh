@@ -63,7 +63,8 @@ else
     PYTHON_CMD="python"
 fi
 
-if git clone "$REPO_URL" "$DEST_DIR"; then
+if git clone --depth=1 "$REPO_URL" "$DEST_DIR"; then
+    rm -rf $DEST_DIR/.git
     echo "Repository successfully cloned into $DEST_DIR."
 else
     echo "Failed to clone the repository."
