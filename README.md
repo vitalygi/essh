@@ -16,7 +16,7 @@ Welcome to **Easy SSH**, a Python-based command-line tool for managing and stori
 # Just enter this command to your terminal
 eval "$(curl -fsSL https://raw.githubusercontent.com/vitalygi/essh/refs/heads/main/install.sh)"
 ```
-
+Compitable with Python 3.9.6 (in the latest versions some libraries may not be built)
 ## Usage
 
 After installing `Easy SSH`, you can use the following commands:
